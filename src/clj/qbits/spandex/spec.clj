@@ -118,9 +118,9 @@
                             :edn any?))
 
 (s/def ::request/exception-handler
-  fn?
+  fn?)
   ;; (s/fspec :args (s/cat :throwable #(instance? Throwable %)))
-)
+
 
 (alias 'response (create-ns 'qbits.spandex.spec.response))
 (s/def ::response (s/keys :req-un [::response/body

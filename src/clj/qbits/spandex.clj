@@ -152,7 +152,7 @@
 
   Object
   (encode-body [x]
-    (NStringEntity. (json/generate-string x)
+    (NStringEntity. (str (json/generate-string x) \newline)
                     StandardCharsets/UTF_8))
 
   nil

@@ -6,7 +6,9 @@
    [qbits.spandex :as s]
    [qbits.spandex.url :as url]
    [qbits.spandex.utils :as utils])
-  (:import (qbits.spandex Response)))
+  (:import (qbits.spandex Response)
+           (java.io BufferedReader)
+           (org.apache.http.util EntityUtils)))
 
 (try
   (require 'qbits.spandex.spec)
@@ -48,6 +50,12 @@
   (is (= (url/encode "/") "/"))
   (is (= (url/encode "/foo") "/foo"))
   (is (= (url/encode nil) "/")))
+
+(deftest test-encode-body
+  (testing "generated string should end with \newline"
+    (is (= (last (EntityUtils/toString (s/encode-body {:index {:_id 1, :_index "foo-index", :_type "_doc"}})))
+           \newline))))
+
 
 (deftest test-chunks
   (is (= (:value (s/chunks->body [{:foo "bar"} {"bar" {:baz 1}}]))
